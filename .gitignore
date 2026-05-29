@@ -1,0 +1,10 @@
+venv/
+.env
+__pycache__/
+*.pyc
+*.pickle
+credentials.json
+token_gmail.pickle
+token_calendar.pickle
+.DS_Store
+node_modules/
