@@ -14,14 +14,14 @@ from tools.whatsapp import send_whatsapp_message
 from memory import get_memory, save_memory
 
 tools = [
-    {"type": "function", "function": {"name": "get_unread_emails", "description": "Get unread emails from Gmail inbox", "parameters": {"type": "object", "properties": {"max_results": {"type": "integer", "description": "Max emails to fetch, default 5"}}, "required": []}}},
-    {"type": "function", "function": {"name": "send_email", "description": "Send an email via Gmail", "parameters": {"type": "object", "properties": {"to": {"type": "string", "description": "Recipient email address"}, "subject": {"type": "string", "description": "Email subject"}, "body": {"type": "string", "description": "Email body"}}, "required": ["to", "subject", "body"]}}},
-    {"type": "function", "function": {"name": "get_github_notifications", "description": "Get GitHub notifications", "parameters": {"type": "object", "properties": {}, "required": []}}},
-    {"type": "function", "function": {"name": "create_notion_task", "description": "Create a task in Notion database", "parameters": {"type": "object", "properties": {"title": {"type": "string", "description": "Task title"}}, "required": ["title"]}}},
-    {"type": "function", "function": {"name": "get_notion_tasks", "description": "Get all tasks from Notion database", "parameters": {"type": "object", "properties": {}, "required": []}}},
-    {"type": "function", "function": {"name": "send_whatsapp", "description": "Send a WhatsApp message to the user", "parameters": {"type": "object", "properties": {"message": {"type": "string", "description": "The message to send"}}, "required": ["message"]}}},
-    {"type": "function", "function": {"name": "get_calendar_events", "description": "Get upcoming Google Calendar events", "parameters": {"type": "object", "properties": {"max_results": {"type": "integer", "description": "Max events to fetch, default 5"}}, "required": []}}},
-    {"type": "function", "function": {"name": "create_calendar_event", "description": "Create a new Google Calendar event", "parameters": {"type": "object", "properties": {"title": {"type": "string", "description": "Event title"}, "start_time": {"type": "string", "description": "Start time in ISO format e.g. 2026-05-30T10:00:00"}, "end_time": {"type": "string", "description": "End time in ISO format"}, "description": {"type": "string", "description": "Event description"}}, "required": ["title", "start_time", "end_time"]}}}
+    {"type": "function", "function": {"name": "get_unread_emails", "description": "Get unread emails from Gmail inbox. Use when user asks about emails.", "parameters": {"type": "object", "properties": {"max_results": {"type": "integer"}}, "required": []}}},
+    {"type": "function", "function": {"name": "send_email", "description": "Send an email via Gmail.", "parameters": {"type": "object", "properties": {"to": {"type": "string"}, "subject": {"type": "string"}, "body": {"type": "string"}}, "required": ["to", "subject", "body"]}}},
+    {"type": "function", "function": {"name": "get_github_notifications", "description": "Get GitHub notifications and activity.", "parameters": {"type": "object", "properties": {}, "required": []}}},
+    {"type": "function", "function": {"name": "create_notion_task", "description": "Create a task in Notion.", "parameters": {"type": "object", "properties": {"title": {"type": "string"}}, "required": ["title"]}}},
+    {"type": "function", "function": {"name": "get_notion_tasks", "description": "Get tasks from Notion.", "parameters": {"type": "object", "properties": {}, "required": []}}},
+    {"type": "function", "function": {"name": "send_whatsapp", "description": "Send a WhatsApp message.", "parameters": {"type": "object", "properties": {"message": {"type": "string"}}, "required": ["message"]}}},
+    {"type": "function", "function": {"name": "get_calendar_events", "description": "Get upcoming Google Calendar events.", "parameters": {"type": "object", "properties": {"max_results": {"type": "integer"}}, "required": []}}},
+    {"type": "function", "function": {"name": "create_calendar_event", "description": "Create a Google Calendar event.", "parameters": {"type": "object", "properties": {"title": {"type": "string"}, "start_time": {"type": "string"}, "end_time": {"type": "string"}, "description": {"type": "string"}}, "required": ["title", "start_time", "end_time"]}}}
 ]
 
 
