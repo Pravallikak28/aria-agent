@@ -1,30 +1,38 @@
 import os
-import pickle
-from datetime import datetime, timedelta
+import json
+from datetime import datetime
 from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
+from dotenv import load_dotenv
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from database import save_token, load_token
+
+load_dotenv(override=True)
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 def get_calendar_service():
-    """Authenticate and return Calendar service"""
+    """Authenticate and return Calendar service using database token storage"""
     creds = None
-    token_path = os.path.join(os.path.dirname(__file__), '..', 'token_calendar.pickle')
     creds_path = os.path.join(os.path.dirname(__file__), '..', 'credentials.json')
 
-    if os.path.exists(token_path):
-        with open(token_path, 'rb') as token:
-            creds = pickle.load(token)
+    # Try loading token from database
+    token_data = load_token('calendar')
+    if token_data:
+        creds = Credentials.from_authorized_user_info(json.loads(token_data), SCOPES)
 
+    # If no valid credentials, refresh or re-authenticate
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
+            save_token('calendar', creds.to_json())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(creds_path, SCOPES)
             creds = flow.run_local_server(port=0)
-        with open(token_path, 'wb') as token:
-            pickle.dump(creds, token)
+            save_token('calendar', creds.to_json())
 
     return build('calendar', 'v3', credentials=creds)
 
